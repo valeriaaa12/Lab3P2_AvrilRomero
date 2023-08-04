@@ -840,19 +840,19 @@ public class Lab3P2_AvrilRomero {
                 System.out.println("Datos principales:");
                 System.out.println(((Automoviles) vehiculos.get(index)).toString());
                 total += 275;
-                total += 205;
+                total += 250;
                 total += 1200;
             } else if (vehiculos.get(index) instanceof Motocicleta) {
                 System.out.println("Datos principales:");
                 System.out.println(((Motocicleta) vehiculos.get(index)).toString());
                 total += 275;
-                total += 205;
+                total += 250;
                 total += 200;
             } else if (vehiculos.get(index) instanceof Autobus) {
                 System.out.println("Datos principales:");
                 System.out.println(((Motocicleta) vehiculos.get(index)).toString());
                 total += 275;
-                total += 205;
+                total += 250;
                 total += 1000;
             } else {
                 System.out.println("No existe este vehiculo");
