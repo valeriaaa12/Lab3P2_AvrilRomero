@@ -63,7 +63,7 @@ public class Lab3P2_AvrilRomero {
                 }
                 break;
                 case 6: {
-
+                    Imprimir(vehiculos);
                 }
                 break;
                 case 7: {
@@ -196,6 +196,153 @@ public class Lab3P2_AvrilRomero {
         //    public Automoviles(String tipoCombusticle, int numPuertas, String transmision, int numAsientos, String placa, String Marca, String Modelo, String Tipo, Color color, Date year) {
         Automoviles auto = new Automoviles(combustible, puertas, transmision, asientos, placa, marca, modelo, tipo, color, fecha2);
         vehiculos.add(auto);
+        return vehiculos;
+    }
+
+    public static ArrayList<Vehiculo> agregarMoto(ArrayList<Vehiculo> vehiculos) {
+        Date fecha2 = new Date();
+        System.out.println("Ingrese la placa: ");
+        String placa = leer.nextLine();
+        boolean valid = true;
+        int convalid = 0;
+        while (valid) {
+            for (int i = 0; i < vehiculos.size(); i++) {
+                if (placa.equals(vehiculos.get(i).getPlaca())) {
+                    convalid++;
+                }
+            }
+            if (placa.startsWith("B") && validPlaca(placa) && convalid <= 0) {
+                valid = false;
+            } else {
+                System.out.println("Placa no valida");
+                System.out.println("Ingrese la placa: ");
+                placa = leer.nextLine();
+            }
+        }//fin while
+        System.out.println("Ingrese la Marca: ");
+        String marca = leer.nextLine();
+        System.out.println("Ingrese un modelo: ");
+        String modelo = leer.nextLine();
+        System.out.println("Ingrese el tipo:");
+        String tipo = leer.nextLine();
+        Color color;
+        color = JColorChooser.showDialog(null, "Seleccione un color", Color.red);
+        System.out.println("Ingrese el año: ");
+        String fecha = leer.nextLine();
+        DateFormat df = new SimpleDateFormat("yyyy");
+        if (fecha.length() > 4) {
+            System.out.println("Formato incorrecto");
+        } else {
+            try {
+                fecha2 = df.parse(fecha);
+            } catch (ParseException ex) {
+                System.out.println("Formato incorrecto. No se puede seguir con esta accion");
+            }
+        }
+        System.out.println("Ingrese la velocidad maxima: ");
+        double velocidad = sc.nextDouble();
+        System.out.println("Ingrese un peso: ");
+        double peso = sc.nextDouble();
+        System.out.println("Ingrese un consumo de combustible:  ");
+        double combustible = sc.nextDouble();
+        // public Motocicleta(double velocidad, double peso, double consumoCombustible, String placa, String Marca, String Modelo, String Tipo, Color color, Date year) {
+        Motocicleta moto = new Motocicleta(velocidad, peso, combustible, placa, marca, modelo, tipo, color, fecha2);
+        vehiculos.add(moto);
+        return vehiculos;
+    }
+
+    public static ArrayList<Vehiculo> agregarBus(ArrayList<Vehiculo> vehiculos) {
+        Date fecha2 = new Date();
+        System.out.println("Ingrese la placa: ");
+        String placa = leer.nextLine();
+        boolean valid = true;
+        int convalid = 0;
+        while (valid) {
+            for (int i = 0; i < vehiculos.size(); i++) {
+                if (placa.equals(vehiculos.get(i).getPlaca())) {
+                    convalid++;
+                }
+            }
+            if (placa.startsWith("H") && validPlaca(placa) && convalid <= 0) {
+                valid = false;
+            } else {
+                System.out.println("Placa no valida");
+                System.out.println("Ingrese la placa: ");
+                placa = leer.nextLine();
+            }
+        }//fin while
+        System.out.println("Ingrese la Marca: ");
+        String marca = leer.nextLine();
+        System.out.println("Ingrese un modelo: ");
+        String modelo = leer.nextLine();
+        System.out.println("Ingrese el tipo:");
+        String tipo = leer.nextLine();
+        Color color;
+        color = JColorChooser.showDialog(null, "Seleccione un color", Color.red);
+        System.out.println("Ingrese el año: ");
+        String fecha = leer.nextLine();
+        DateFormat df = new SimpleDateFormat("yyyy");
+        if (fecha.length() > 4) {
+            System.out.println("Formato incorrecto");
+        } else {
+            try {
+                fecha2 = df.parse(fecha);
+            } catch (ParseException ex) {
+                System.out.println("Formato incorrecto. No se puede seguir con esta accion");
+            }
+        }
+        System.out.println("Ingrese una cantidad de pasajeros: ");
+        int pasajeros = sc.nextInt();
+        System.out.println("Ingrese numero de ejes: ");
+        int ejes = sc.nextInt();
+        System.out.println("Ingrese longitud: ");
+        double longitud = sc.nextDouble();
+        // public Autobus(int pasajeros, int ejes, double longitud, String placa, String Marca, String Modelo, String Tipo, Color color, Date year) {
+        Autobus bus = new Autobus(pasajeros, ejes, longitud, placa, marca, modelo, tipo, color, fecha2);
+        vehiculos.add(bus);
+        return vehiculos;
+    }
+
+    public static void Imprimir(ArrayList<Vehiculo> vehiculo) {
+        System.out.println("Automoviles");
+        for (Vehiculo vehiculo1 : vehiculo) {
+            if (vehiculo1 instanceof Automoviles) {
+                System.out.println(vehiculo.indexOf(vehiculo1) + "-");
+                System.out.println(vehiculo1.toString());
+            }
+        }
+        System.out.println("Motocicleta");
+        for (Vehiculo vehiculo1 : vehiculo) {
+            if (vehiculo1 instanceof Motocicleta) {
+                System.out.println(vehiculo.indexOf(vehiculo1) + "-");
+                System.out.println(vehiculo1.toString());
+            }
+        }
+        System.out.println("Autobuses");
+        for (Vehiculo vehiculo1 : vehiculo) {
+            if (vehiculo1 instanceof Autobus) {
+                System.out.println(vehiculo.indexOf(vehiculo1) + "-");
+                System.out.println(vehiculo1.toString());
+            }
+        }
+
+    }
+
+    public static ArrayList<Vehiculo> modificarAuto(ArrayList<Vehiculo> vehiculos) {
+        
+        System.out.println("""
+                           1.Placa
+                           2.Marca
+                           3.Modelo
+                           4.Tipo
+                           5.Color
+                           6.Año
+                           7.Tipo de Combustible
+                           8.Numero de puertas
+                           9.Tipo de transmision
+                           10.Numero de asientos
+                           11.Salir 
+                           Ingrese una opcion:""");
         return vehiculos;
     }
 

@@ -33,7 +33,6 @@ public class Automoviles extends Vehiculo {
         }
 
     }
-    
 
     public String getTipoCombusticle() {
         return tipoCombusticle;
@@ -47,9 +46,11 @@ public class Automoviles extends Vehiculo {
         return numPuertas;
     }
 
-    public void setNumPuertas(int numPuertas) {
+    public void setNumPuertas(int numPuertas) throws Exception {
         if (numPuertas > 0) {
             this.numPuertas = numPuertas;
+        }else {
+            throw new Exception();//en lugar de imprimir, tirar una exception,todavia no usar hasta semana 4
         }
     }
 
@@ -65,15 +66,18 @@ public class Automoviles extends Vehiculo {
         return numAsientos;
     }
 
-    public void setNumAsientos(int numAsientos) {
+    public void setNumAsientos(int numAsientos) throws Exception {
         if (numAsientos > 0) {
             this.numAsientos = numAsientos;
+        } else {
+            throw new Exception();//en lugar de imprimir, tirar una exception,todavia no usar hasta semana 4
         }
     }
 
     @Override
     public String toString() {
-        return "Automoviles{" + "tipoCombusticle=" + tipoCombusticle + ", numPuertas=" + numPuertas + ", transmision=" + transmision + ", numAsientos=" + numAsientos + '}';
+        System.out.println(super.toString());
+        return  "tipo de combusticle: " + tipoCombusticle +"\n"+ "numero de puertas: " + numPuertas+"\n" + "transmision: " + transmision +"\n"+ ", numero de asientos: " + numAsientos +"\n";
     }
 
 }

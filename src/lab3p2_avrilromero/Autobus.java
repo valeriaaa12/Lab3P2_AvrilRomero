@@ -12,14 +12,15 @@ import java.util.Date;
  * @author rodge
  */
 public class Autobus extends Vehiculo {
+
     private int pasajeros;
     private int ejes;
-    private int longitud;
+    private double longitud;
 
     public Autobus() {
     }
 
-    public Autobus(int pasajeros, int ejes, int longitud, String placa, String Marca, String Modelo, String Tipo, Color color, Date year) {
+    public Autobus(int pasajeros, int ejes, double longitud, String placa, String Marca, String Modelo, String Tipo, Color color, Date year) {
         super(placa, Marca, Modelo, Tipo, color, year);
         this.pasajeros = pasajeros;
         this.ejes = ejes;
@@ -30,29 +31,45 @@ public class Autobus extends Vehiculo {
         return pasajeros;
     }
 
-    public void setPasajeros(int pasajeros) {
-        this.pasajeros = pasajeros;
+    public void setPasajeros(int pasajeros) throws Exception {
+        if (pasajeros > 0) {
+            this.pasajeros = pasajeros;
+        } else {
+            throw new Exception();//en lugar de imprimir, tirar una exception,todavia no usar hasta semana 4
+        }
+
     }
 
     public int getEjes() {
         return ejes;
     }
 
-    public void setEjes(int ejes) {
-        this.ejes = ejes;
+    public void setEjes(int ejes) throws Exception {
+        if (ejes > 0) {
+            this.ejes = ejes;
+        } else {
+            throw new Exception();//en lugar de imprimir, tirar una exception,todavia no usar hasta semana 4
+        }
+
     }
 
-    public int getLongitud() {
+    public double getLongitud() {
         return longitud;
     }
 
-    public void setLongitud(int longitud) {
-        this.longitud = longitud;
+    public void setLongitud(double longitud) throws Exception {
+        if (longitud > 0) {
+            this.longitud = longitud;
+        } else {
+            throw new Exception();//en lugar de imprimir, tirar una exception,todavia no usar hasta semana 4
+        }
+
     }
 
     @Override
     public String toString() {
-        return "Autobus{" + "pasajeros=" + pasajeros + ", ejes=" + ejes + ", longitud=" + longitud + '}';
+        System.out.println(super.toString());
+        return "pasajeros: " + pasajeros + "\n" + "ejes: " + ejes + "\n" + ", longitud: " + longitud + "\n";
     }
-    
+
 }

@@ -81,10 +81,10 @@ public class Vehiculo {
     public void setYear(Date year) {
         this.year = year;
     }
-
+    
     @Override
     public String toString() {
-        return "Vehiculo{" + "placa=" + placa + ", Marca=" + Marca + ", Modelo=" + Modelo + ", Tipo=" + Tipo + ", color=" + color + ", year=" + year + '}';
+        return "placa: " + placa + "\n" + "marca: " + Marca + "\n" + "modelo: " + Modelo + "\n" + "tipo: " + Tipo + "\n" + "color: " + color + "\n" + "año: " + year + "\n";
     }
     
 }

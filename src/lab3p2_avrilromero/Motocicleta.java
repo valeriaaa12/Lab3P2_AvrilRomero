@@ -43,9 +43,11 @@ public class Motocicleta extends Vehiculo {
         return peso;
     }
 
-    public void setPeso(double peso) {
+    public void setPeso(double peso) throws Exception {
         if (peso > 0) {
             this.peso = peso;
+        } else {
+            throw new Exception();//en lugar de imprimir, tirar una exception,todavia no usar hasta semana 4
         }
     }
 
@@ -53,15 +55,18 @@ public class Motocicleta extends Vehiculo {
         return consumoCombustible;
     }
 
-    public void setConsumoCombustible(double consumoCombustible) {
+    public void setConsumoCombustible(double consumoCombustible) throws Exception {
         if (consumoCombustible > 0) {
             this.consumoCombustible = consumoCombustible;
+        } else {
+            throw new Exception();//en lugar de imprimir, tirar una exception,todavia no usar hasta semana 4
         }
     }
 
     @Override
     public String toString() {
-        return "Motocicleta{" + "velocidad=" + velocidad + ", peso=" + peso + ", consumoCombustible=" + consumoCombustible + '}';
+        System.out.println(super.toString());
+        return  "velocidad: " + velocidad +"\n"+ ", peso: " + peso+"\n" + ", consumo de Combustible: " + consumoCombustible + "\n";
     }
 
 }
