@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 import javax.swing.JColorChooser;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -55,20 +56,38 @@ public class Lab3P2_AvrilRomero {
                 }
                 break;
                 case 4: {
-                    Imprimir(vehiculos);
-                    vehiculos = modificarAuto(vehiculos);
+                    if (vehiculos.isEmpty()) {
+                        System.out.println("Debe agregar un vehiculo primero");
+                    } else {
+                        Imprimir(vehiculos);
+                        vehiculos = modificarAuto(vehiculos);
+                    }
+
                 }
                 break;
                 case 5: {
-
+                    if (vehiculos.isEmpty()) {
+                        System.out.println("Debe agregar un vehiculo primero");
+                    } else {
+                        Imprimir(vehiculos);
+                        vehiculos = eliminarVehiculo(vehiculos);
+                    }
                 }
                 break;
                 case 6: {
-                    Imprimir(vehiculos);
+                    if (vehiculos.isEmpty()) {
+                        System.out.println("Debe agregar un vehiculo primero");
+                    } else {
+                        Imprimir(vehiculos);
+                    }
                 }
                 break;
                 case 7: {
+                    if (vehiculos.isEmpty()) {
+                        System.out.println("Debe agregar un vehiculo primero");
+                    } else {
 
+                    }
                 }
                 break;
                 case 8: {
@@ -581,15 +600,21 @@ public class Lab3P2_AvrilRomero {
                             }
                             break;
                             case 7: {
-
+                                System.out.println("Ingrese la velocidad maxima: ");
+                                double velocidad = sc.nextDouble();
+                                ((Motocicleta) vehiculos.get(index)).setVelocidad(velocidad);
                             }
                             break;
                             case 8: {
-
+                                System.out.println("Ingrese un peso: ");
+                                double peso = sc.nextDouble();
+                                ((Motocicleta) vehiculos.get(index)).setPeso(peso);
                             }
                             break;
                             case 9: {
-
+                                System.out.println("Ingrese un consumo de combustible:  ");
+                                double combustible = sc.nextDouble();
+                                ((Motocicleta) vehiculos.get(index)).setConsumoCombustible(combustible);
                             }
                             break;
                             default: {
@@ -607,6 +632,192 @@ public class Lab3P2_AvrilRomero {
             break;
 
             case 3: {
+                System.out.println("Ingrese el indice del bus a modificar: ");
+                int index = sc.nextInt();
+                if (index >= 0 && index < vehiculos.size()) {
+                    if (vehiculos.get(index) instanceof Autobus) {
+                        System.out.println("""
+                           1.Placa
+                           2.Marca
+                           3.Modelo
+                           4.Tipo
+                           5.Color
+                           6.Año
+                           7.Pasajeros
+                           8.Numero de ejes
+                           9.Longitud
+                           Ingrese una opcion:""");
+                        int op = sc.nextInt();
+                        switch (op) {
+                            case 1: {
+                                System.out.println("Ingrese la placa: ");
+                                String placa = leer.nextLine();
+                                boolean valid = true;
+                                int convalid = 0;
+                                while (valid) {
+                                    for (int i = 0; i < vehiculos.size(); i++) {
+                                        if (placa.equals(vehiculos.get(i).getPlaca())) {
+                                            convalid++;
+                                        }
+                                    }
+                                    if (placa.startsWith("H") && validPlaca(placa) && convalid == 0) {
+                                        vehiculos.get(index).setPlaca(placa);
+                                        valid = false;
+                                    } else {
+                                        System.out.println("Placa no valida");
+                                        System.out.println("Ingrese la placa: ");
+                                        placa = leer.nextLine();
+                                        vehiculos.get(index).setPlaca(placa);
+                                    }
+                                }//fin while
+                            }
+                            break;
+                            case 2: {
+                                System.out.println("Ingrese la Marca: ");
+                                String marca = leer.nextLine();
+                                vehiculos.get(index).setMarca(marca);
+                            }
+                            break;
+                            case 3: {
+                                System.out.println("Ingrese un modelo: ");
+                                String modelo = leer.nextLine();
+                                vehiculos.get(index).setModelo(modelo);
+                            }
+                            break;
+                            case 4: {
+                                System.out.println("Ingrese el tipo:");
+                                String tipo = leer.nextLine();
+                                vehiculos.get(index).setTipo(tipo);
+                            }
+                            break;
+                            case 5: {
+                                Color color;
+                                color = JColorChooser.showDialog(null, "Seleccione un color", Color.red);
+                                vehiculos.get(index).setColor(color);
+                            }
+                            break;
+                            case 6: {
+                                Date fecha2 = new Date();
+                                System.out.println("Ingrese el año: ");
+                                String fecha = leer.nextLine();
+                                DateFormat df = new SimpleDateFormat("yyyy");
+                                if (fecha.length() > 4) {
+                                    System.out.println("Formato incorrecto");
+                                } else {
+                                    try {
+                                        fecha2 = df.parse(fecha);
+                                    } catch (ParseException ex) {
+                                        System.out.println("Formato incorrecto. No se puede seguir con esta accion");
+                                    }
+                                }
+                                vehiculos.get(index).setYear(fecha2);
+                            }
+                            break;
+                            case 7: {
+                                System.out.println("Ingrese una cantidad de pasajeros: ");
+                                int pasajeros = sc.nextInt();
+                                ((Autobus) vehiculos.get(index)).setPasajeros(pasajeros);
+                            }
+                            break;
+                            case 8: {
+                                System.out.println("Ingrese numero de ejes: ");
+                                int ejes = sc.nextInt();
+                                ((Autobus) vehiculos.get(index)).setEjes(ejes);
+                            }
+                            break;
+                            case 9: {
+                                System.out.println("Ingrese longitud: ");
+                                double longitud = sc.nextDouble();
+                                ((Autobus) vehiculos.get(index)).setLongitud(longitud);
+                            }
+                            break;
+                            default: {
+                                System.out.println("Opcion incorrecta");
+                            }
+                            break;
+                        }//fin switch
+
+                    } else {
+                        System.out.println("No es un autobus");
+                    }
+                } else {
+                    System.out.println("Numero fuera de rango");
+                }
+            }
+            break;
+
+            default: {
+                System.out.println("Opcion incorrecta");
+            }
+            break;
+        }
+        return vehiculos;
+    }
+
+    public static ArrayList<Vehiculo> eliminarVehiculo(ArrayList<Vehiculo> vehiculos) {
+        System.out.println("""
+                           1.Eliminar auto
+                           2.Eliminar Moto
+                           3.Eliminar Bus
+                           Ingrese una opcion: """);
+        int op = sc.nextInt();
+        switch (op) {
+            case 1: {
+                System.out.println("Ingrese el indice del auto a eliminar: ");
+                int index = sc.nextInt();
+                if (index >= 0 && index < vehiculos.size()) {
+                    if (vehiculos.get(index) instanceof Automoviles) {
+                        int f = JOptionPane.showConfirmDialog(null, "Estas seguro de eliminar? ");
+                        if (f == 0) {
+                            vehiculos.remove(vehiculos.get(index));
+                        } else {
+                            System.out.println("No se preocupe ya se elimino!");
+                        }
+                    } else {
+                        System.out.println("Eso no es un automovil");
+                    }
+                } else {
+                    System.out.println("Fuera de rango");
+                }
+
+            }
+            break;
+            case 2: {
+                System.out.println("Ingrese el indice de la moto a eliminar: ");
+                int index = sc.nextInt();
+                if (index >= 0 && index < vehiculos.size()) {
+                    if (vehiculos.get(index) instanceof Motocicleta) {
+                        int f = JOptionPane.showConfirmDialog(null, "Estas seguro de eliminar? ");
+                        if (f == 0) {
+                            vehiculos.remove(vehiculos.get(index));
+                        } else {
+                            System.out.println("No se preocupe ya se elimino!");
+                        }
+                    } else {
+                        System.out.println("Eso no es un automovil");
+                    }
+                } else {
+                    System.out.println("Fuera de rango");
+                }
+            }
+            break;
+            case 3: {
+                System.out.println("Ingrese el indice del bus a eliminar: ");
+                int index = sc.nextInt();
+                if (index >= 0 && index < vehiculos.size()) {
+                    if (vehiculos.get(index) instanceof Autobus) {
+                        int f = JOptionPane.showConfirmDialog(null, "Estas seguro de eliminar? ");
+                        if (f == 0) {
+                            vehiculos.remove(vehiculos.get(index));
+                        } else {
+                            System.out.println("No se preocupe ya se elimino!");
+                        }
+                    } else {
+                        System.out.println("Eso no es un automovil");
+                    }
+                } else {
+                    System.out.println("Fuera de rango");
+                }
 
             }
             break;
@@ -615,7 +826,6 @@ public class Lab3P2_AvrilRomero {
             }
             break;
         }
-
         return vehiculos;
     }
 
