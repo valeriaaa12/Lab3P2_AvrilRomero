@@ -47,11 +47,11 @@ public class Lab3P2_AvrilRomero {
 
                 break;
                 case 2: {
-
+                    vehiculos = agregarMoto(vehiculos);
                 }
                 break;
                 case 3: {
-
+                    vehiculos = agregarBus(vehiculos);
                 }
                 break;
                 case 4: {
@@ -329,8 +329,18 @@ public class Lab3P2_AvrilRomero {
     }
 
     public static ArrayList<Vehiculo> modificarAuto(ArrayList<Vehiculo> vehiculos) {
-        
         System.out.println("""
+                           1.Automovil
+                           2.Motocicleta
+                           3.Autobus
+                           Ingrese el numero del que quiera modificar: """);
+        int op1 = sc.nextInt();
+        switch (op1) {
+            case 1: {
+                System.out.println("Ingrese el indice del auto a modificar: ");
+                int index = sc.nextInt();
+                if (vehiculos.get(index) instanceof Automoviles) {
+                    System.out.println("""
                            1.Placa
                            2.Marca
                            3.Modelo
@@ -343,6 +353,95 @@ public class Lab3P2_AvrilRomero {
                            10.Numero de asientos
                            11.Salir 
                            Ingrese una opcion:""");
+                    int op = sc.nextInt();
+                    switch (op) {
+                        case 1: {
+                            System.out.println("Ingrese la placa: ");
+                            String placa = leer.nextLine();
+                            boolean valid = true;
+                            int convalid = 0;
+                            while (valid) {
+                                for (int i = 0; i < vehiculos.size(); i++) {
+                                    if (placa.equals(vehiculos.get(i).getPlaca())) {
+                                        convalid++;
+                                    }
+                                }
+                                if (placa.startsWith("H") && validPlaca(placa) && convalid <= 0) {
+                                    vehiculos.get(index).setPlaca(placa);
+                                    valid = false;
+                                } else {
+                                    System.out.println("Placa no valida");
+                                    System.out.println("Ingrese la placa: ");
+                                    placa = leer.nextLine();
+                                    vehiculos.get(index).setPlaca(placa);
+                                }
+                            }//fin while
+                        }
+                        break;
+                        case 2: {
+
+                        }
+                        break;
+                        case 3: {
+
+                        }
+                        break;
+                        case 4: {
+
+                        }
+                        break;
+                        case 5: {
+
+                        }
+                        break;
+                        case 6: {
+
+                        }
+                        break;
+                        case 7: {
+
+                        }
+                        break;
+                        case 8: {
+
+                        }
+                        break;
+                        case 9: {
+
+                        }
+                        break;
+                        case 10: {
+
+                        }
+                        break;
+                        case 11: {
+
+                        }
+                        break;
+                        default: {
+                            System.out.println("Opcion incorrecta: ");
+                        }
+                        break;
+                    }
+                } else {
+                    System.out.println("Eso no es un vehiculo");
+                }
+            }
+            break;
+            case 2: {
+
+            }
+            break;
+            case 3: {
+
+            }
+            break;
+            default: {
+                System.out.println("Opcion incorrecta");
+            }
+            break;
+        }
+
         return vehiculos;
     }
 
