@@ -26,7 +26,7 @@ public class Lab3P2_AvrilRomero {
     static Scanner sc = new Scanner(System.in);//lee enteros
     static ArrayList<Vehiculo> vehiculos = new ArrayList();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         boolean seguir = true;
         while (seguir) {
             System.out.println("-MENU-");
@@ -55,7 +55,8 @@ public class Lab3P2_AvrilRomero {
                 }
                 break;
                 case 4: {
-
+                    Imprimir(vehiculos);
+                    vehiculos = modificarAuto(vehiculos);
                 }
                 break;
                 case 5: {
@@ -339,8 +340,9 @@ public class Lab3P2_AvrilRomero {
             case 1: {
                 System.out.println("Ingrese el indice del auto a modificar: ");
                 int index = sc.nextInt();
-                if (vehiculos.get(index) instanceof Automoviles) {
-                    System.out.println("""
+                if (index >= 0 && index < vehiculos.size()) {
+                    if (vehiculos.get(index) instanceof Automoviles) {
+                        System.out.println("""
                            1.Placa
                            2.Marca
                            3.Modelo
@@ -352,151 +354,258 @@ public class Lab3P2_AvrilRomero {
                            9.Tipo de transmision
                            10.Numero de asientos
                            Ingrese una opcion:""");
-                    int op = sc.nextInt();
-                    switch (op) {
-                        case 1: {
-                            System.out.println("Ingrese la placa: ");
-                            String placa = leer.nextLine();
-                            boolean valid = true;
-                            int convalid = 0;
-                            while (valid) {
-                                for (int i = 0; i < vehiculos.size(); i++) {
-                                    if (placa.equals(vehiculos.get(i).getPlaca())) {
-                                        convalid++;
+                        int op = sc.nextInt();
+                        switch (op) {
+                            case 1: {
+                                System.out.println("Ingrese la placa: ");
+                                String placa = leer.nextLine();
+                                boolean valid = true;
+                                int convalid = 0;
+                                while (valid) {
+                                    for (int i = 0; i < vehiculos.size(); i++) {
+                                        if (placa.equals(vehiculos.get(i).getPlaca())) {
+                                            convalid++;
+                                        }
+                                    }
+                                    if (placa.startsWith("H") && validPlaca(placa) && convalid == 0) {
+                                        vehiculos.get(index).setPlaca(placa);
+                                        valid = false;
+                                    } else {
+                                        System.out.println("Placa no valida");
+                                        System.out.println("Ingrese la placa: ");
+                                        placa = leer.nextLine();
+                                        vehiculos.get(index).setPlaca(placa);
+                                    }
+                                }//fin while
+                            }
+                            break;
+                            case 2: {
+                                System.out.println("Ingrese la Marca: ");
+                                String marca = leer.nextLine();
+                                vehiculos.get(index).setMarca(marca);
+                            }
+                            break;
+                            case 3: {
+                                System.out.println("Ingrese un modelo: ");
+                                String modelo = leer.nextLine();
+                                vehiculos.get(index).setModelo(modelo);
+                            }
+                            break;
+                            case 4: {
+                                System.out.println("Ingrese el tipo:");
+                                String tipo = leer.nextLine();
+                                vehiculos.get(index).setTipo(tipo);
+                            }
+                            break;
+                            case 5: {
+                                Color color;
+                                color = JColorChooser.showDialog(null, "Seleccione un color", Color.red);
+                                vehiculos.get(index).setColor(color);
+                            }
+                            break;
+                            case 6: {
+                                Date fecha2 = new Date();
+                                System.out.println("Ingrese el año: ");
+                                String fecha = leer.nextLine();
+                                DateFormat df = new SimpleDateFormat("yyyy");
+                                if (fecha.length() > 4) {
+                                    System.out.println("Formato incorrecto");
+                                } else {
+                                    try {
+                                        fecha2 = df.parse(fecha);
+                                    } catch (ParseException ex) {
+                                        System.out.println("Formato incorrecto. No se puede seguir con esta accion");
                                     }
                                 }
-                                if (placa.startsWith("H") && validPlaca(placa) && convalid == 0) {
-                                    vehiculos.get(index).setPlaca(placa);
-                                    valid = false;
-                                } else {
-                                    System.out.println("Placa no valida");
-                                    System.out.println("Ingrese la placa: ");
-                                    placa = leer.nextLine();
-                                    vehiculos.get(index).setPlaca(placa);
-                                }
-                            }//fin while
-                        }
-                        break;
-                        case 2: {
-                            System.out.println("Ingrese la Marca: ");
-                            String marca = leer.nextLine();
-                            vehiculos.get(index).setMarca(marca);
-                        }
-                        break;
-                        case 3: {
-                            System.out.println("Ingrese un modelo: ");
-                            String modelo = leer.nextLine();
-                            vehiculos.get(index).setModelo(modelo);
-                        }
-                        break;
-                        case 4: {
-                            System.out.println("Ingrese el tipo:");
-                            String tipo = leer.nextLine();
-                            vehiculos.get(index).setTipo(tipo);
-                        }
-                        break;
-                        case 5: {
-                            Color color;
-                            color = JColorChooser.showDialog(null, "Seleccione un color", Color.red);
-                            vehiculos.get(index).setColor(color);
-                        }
-                        break;
-                        case 6: {
-                            Date fecha2 = new Date();
-                            System.out.println("Ingrese el año: ");
-                            String fecha = leer.nextLine();
-                            DateFormat df = new SimpleDateFormat("yyyy");
-                            if (fecha.length() > 4) {
-                                System.out.println("Formato incorrecto");
-                            } else {
-                                try {
-                                    fecha2 = df.parse(fecha);
-                                } catch (ParseException ex) {
-                                    System.out.println("Formato incorrecto. No se puede seguir con esta accion");
-                                }
+                                vehiculos.get(index).setYear(fecha2);
                             }
-                            vehiculos.get(index).setYear(fecha2);
-                        }
-                        break;
-                        case 7: {
-                            System.out.println("""
+                            break;
+                            case 7: {
+                                System.out.println("""
                                        Ingrese el tipo de combustible:
                                        1.Diesel
                                        2.Super
                                        3.Regular""");
-                            int op2 = sc.nextInt();
-                            String combustible = "";
-                            switch (op2) {
-                                case 1: {
-                                    combustible += "Diesel";
-                                }
-                                break;
-                                case 2: {
-                                    combustible += "Super";
-                                }
-                                break;
-                                case 3: {
-                                    combustible += "Regular";
-                                }
-                                break;
-                                default: {
-                                    System.out.println("Combustible no valido");
-                                }
-                                break;
-                            }//fin switch
-                            ((Automoviles) vehiculos.get(index)).setTipoCombusticle(combustible);
-                        }
-                        break;
-                        case 8: {
-                            System.out.println("Ingrese el numero de puertas: ");
-                            int puertas = sc.nextInt();
-                            ((Automoviles) vehiculos.get(index)).setNumPuertas(puertas);
-                        }
-                        break;
-                        case 9: {
-                            System.out.println("""
+                                int op2 = sc.nextInt();
+                                String combustible = "";
+                                switch (op2) {
+                                    case 1: {
+                                        combustible += "Diesel";
+                                    }
+                                    break;
+                                    case 2: {
+                                        combustible += "Super";
+                                    }
+                                    break;
+                                    case 3: {
+                                        combustible += "Regular";
+                                    }
+                                    break;
+                                    default: {
+                                        System.out.println("Combustible no valido");
+                                    }
+                                    break;
+                                }//fin switch
+                                ((Automoviles) vehiculos.get(index)).setTipoCombusticle(combustible);
+                            }
+                            break;
+                            case 8: {
+                                System.out.println("Ingrese el numero de puertas: ");
+                                int puertas = sc.nextInt();
+                                ((Automoviles) vehiculos.get(index)).setNumPuertas(puertas);
+                            }
+                            break;
+                            case 9: {
+                                System.out.println("""
                                        Ingrese el tipo de transmision:
                                        1.Automatico
                                        2.Mecanico""");
-                            int op3 = sc.nextInt();
-                            String transmision = "";
-                            switch (op3) {
-                                case 1: {
-                                    transmision += "Automatico";
+                                int op3 = sc.nextInt();
+                                String transmision = "";
+                                switch (op3) {
+                                    case 1: {
+                                        transmision += "Automatico";
+                                    }
+                                    break;
+                                    case 2: {
+                                        transmision += "Mecanico";
+                                    }
+                                    break;
+                                    default: {
+                                        System.out.println("Transmision no valida");
+                                    }
+                                    break;
                                 }
-                                break;
-                                case 2: {
-                                    transmision += "Mecanico";
-                                }
-                                break;
-                                default: {
-                                    System.out.println("Transmision no valida");
-                                }
-                                break;
+                                ((Automoviles) vehiculos.get(index)).setTransmision(transmision);
                             }
-                            ((Automoviles) vehiculos.get(index)).setTransmision(transmision);
+                            break;
+                            case 10: {
+                                System.out.println("Ingrese el numero de asientos");
+                                int asientos = sc.nextInt();
+                                ((Automoviles) vehiculos.get(index)).setNumAsientos(asientos);
+                            }
+                            break;
+                            default: {
+                                System.out.println("Opcion incorrecta: ");
+                            }
+                            break;
                         }
-                        break;
-                        case 10: {
-                            System.out.println("Ingrese el numero de asientos");
-                            int asientos = sc.nextInt();
-                            ((Automoviles) vehiculos.get(index)).setNumAsientos(asientos);
-                        }
-                        break;
-                        default: {
-                            System.out.println("Opcion incorrecta: ");
-                        }
-                        break;
+                    } else {
+                        System.out.println("Eso no es un vehiculo");
                     }
                 } else {
-                    System.out.println("Eso no es un vehiculo");
+                    System.out.println("Numero fuera de rango");
                 }
             }
             break;
             case 2: {
+                System.out.println("Ingrese el indice de la moto a modificar: ");
+                int index = sc.nextInt();
+                if (index >= 0 && index < vehiculos.size()) {
+                    if (vehiculos.get(index) instanceof Motocicleta) {
+                        System.out.println("""
+                           1.Placa
+                           2.Marca
+                           3.Modelo
+                           4.Tipo
+                           5.Color
+                           6.Año
+                           7.Velocidad Maxima
+                           8.Peso
+                           9.Consumo de combustible
+                           Ingrese una opcion:""");
+                        int op = sc.nextInt();
+                        switch (op) {
+                            case 1: {
+                                System.out.println("Ingrese la placa: ");
+                                String placa = leer.nextLine();
+                                boolean valid = true;
+                                int convalid = 0;
+                                while (valid) {
+                                    for (int i = 0; i < vehiculos.size(); i++) {
+                                        if (placa.equals(vehiculos.get(i).getPlaca())) {
+                                            convalid++;
+                                        }
+                                    }
+                                    if (placa.startsWith("H") && validPlaca(placa) && convalid == 0) {
+                                        vehiculos.get(index).setPlaca(placa);
+                                        valid = false;
+                                    } else {
+                                        System.out.println("Placa no valida");
+                                        System.out.println("Ingrese la placa: ");
+                                        placa = leer.nextLine();
+                                        vehiculos.get(index).setPlaca(placa);
+                                    }
+                                }//fin while
+                            }
+                            break;
+                            case 2: {
+                                System.out.println("Ingrese la Marca: ");
+                                String marca = leer.nextLine();
+                                vehiculos.get(index).setMarca(marca);
+                            }
+                            break;
+                            case 3: {
+                                System.out.println("Ingrese un modelo: ");
+                                String modelo = leer.nextLine();
+                                vehiculos.get(index).setModelo(modelo);
+                            }
+                            break;
+                            case 4: {
+                                System.out.println("Ingrese el tipo:");
+                                String tipo = leer.nextLine();
+                                vehiculos.get(index).setTipo(tipo);
+                            }
+                            break;
+                            case 5: {
+                                Color color;
+                                color = JColorChooser.showDialog(null, "Seleccione un color", Color.red);
+                                vehiculos.get(index).setColor(color);
+                            }
+                            break;
+                            case 6: {
+                                Date fecha2 = new Date();
+                                System.out.println("Ingrese el año: ");
+                                String fecha = leer.nextLine();
+                                DateFormat df = new SimpleDateFormat("yyyy");
+                                if (fecha.length() > 4) {
+                                    System.out.println("Formato incorrecto");
+                                } else {
+                                    try {
+                                        fecha2 = df.parse(fecha);
+                                    } catch (ParseException ex) {
+                                        System.out.println("Formato incorrecto. No se puede seguir con esta accion");
+                                    }
+                                }
+                                vehiculos.get(index).setYear(fecha2);
+                            }
+                            break;
+                            case 7: {
 
-            }
+                            }
+                            break;
+                            case 8: {
+
+                            }
+                            break;
+                            case 9: {
+
+                            }
+                            break;
+                            default: {
+                                System.out.println("Opcion incorrecta");
+                            }
+                            break;
+                        }
+                    } else {
+                        System.out.println("No es una motocicleta");
+                    }
+                } else {
+                    System.out.println("Numero fuera de rango");
+                }
+            }//fin case 2
             break;
+
             case 3: {
 
             }
