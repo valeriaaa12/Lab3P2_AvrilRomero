@@ -33,6 +33,7 @@ public class Automoviles extends Vehiculo {
         }
 
     }
+    
 
     public String getTipoCombusticle() {
         return tipoCombusticle;
