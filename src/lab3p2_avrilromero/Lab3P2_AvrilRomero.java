@@ -86,7 +86,9 @@ public class Lab3P2_AvrilRomero {
                     if (vehiculos.isEmpty()) {
                         System.out.println("Debe agregar un vehiculo primero");
                     } else {
-
+                        Imprimir(vehiculos);
+                        int total = generarBoleta(vehiculos);
+                        System.out.println("Su total a pagar de la tasa vehicular es de: " + total);
                     }
                 }
                 break;
@@ -827,6 +829,40 @@ public class Lab3P2_AvrilRomero {
             break;
         }
         return vehiculos;
+    }
+
+    public static int generarBoleta(ArrayList<Vehiculo> vehiculos) {
+        int total = 0;
+        System.out.println("Ingrese el indice del vehiculo a generar su boleta: ");
+        int index = sc.nextInt();
+        if (index >= 0 && index < vehiculos.size()) {
+            if (vehiculos.get(index) instanceof Automoviles) {
+                System.out.println("Datos principales:");
+                System.out.println(((Automoviles) vehiculos.get(index)).toString());
+                total += 275;
+                total += 205;
+                total += 1200;
+            } else if (vehiculos.get(index) instanceof Motocicleta) {
+                System.out.println("Datos principales:");
+                System.out.println(((Motocicleta) vehiculos.get(index)).toString());
+                total += 275;
+                total += 205;
+                total += 200;
+            } else if (vehiculos.get(index) instanceof Autobus) {
+                System.out.println("Datos principales:");
+                System.out.println(((Motocicleta) vehiculos.get(index)).toString());
+                total += 275;
+                total += 205;
+                total += 1000;
+            } else {
+                System.out.println("No existe este vehiculo");
+            }
+        } else {
+            System.out.println("Fuera de rango");
+        }
+
+        return total;
+
     }
 
 }//fin clase 
