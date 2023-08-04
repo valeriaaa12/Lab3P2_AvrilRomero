@@ -66,7 +66,7 @@ public class Motocicleta extends Vehiculo {
     @Override
     public String toString() {
         System.out.println(super.toString());
-        return  "velocidad: " + velocidad +"\n"+ ", peso: " + peso+"\n" + ", consumo de Combustible: " + consumoCombustible + "\n";
+        return  "velocidad: " + velocidad +"\n"+ "peso: " + peso+"\n" + "consumo de Combustible: " + consumoCombustible ;
     }
 
 }

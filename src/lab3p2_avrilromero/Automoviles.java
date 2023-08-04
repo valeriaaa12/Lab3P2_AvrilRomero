@@ -77,7 +77,7 @@ public class Automoviles extends Vehiculo {
     @Override
     public String toString() {
         System.out.println(super.toString());
-        return  "tipo de combusticle: " + tipoCombusticle +"\n"+ "numero de puertas: " + numPuertas+"\n" + "transmision: " + transmision +"\n"+ ", numero de asientos: " + numAsientos +"\n";
+        return  "tipo de combusticle: " + tipoCombusticle +"\n"+ "numero de puertas: " + numPuertas+"\n" + "transmision: " + transmision +"\n"+ "numero de asientos: " + numAsientos ;
     }
 
 }

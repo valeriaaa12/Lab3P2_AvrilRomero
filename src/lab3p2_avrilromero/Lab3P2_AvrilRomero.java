@@ -366,7 +366,7 @@ public class Lab3P2_AvrilRomero {
                                         convalid++;
                                     }
                                 }
-                                if (placa.startsWith("H") && validPlaca(placa) && convalid <= 0) {
+                                if (placa.startsWith("H") && validPlaca(placa) && convalid == 0) {
                                     vehiculos.get(index).setPlaca(placa);
                                     valid = false;
                                 } else {

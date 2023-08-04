@@ -69,7 +69,7 @@ public class Autobus extends Vehiculo {
     @Override
     public String toString() {
         System.out.println(super.toString());
-        return "pasajeros: " + pasajeros + "\n" + "ejes: " + ejes + "\n" + ", longitud: " + longitud + "\n";
+        return "pasajeros: " + pasajeros + "\n" + "ejes: " + ejes + "\n" + "longitud: " + longitud;
     }
 
 }
