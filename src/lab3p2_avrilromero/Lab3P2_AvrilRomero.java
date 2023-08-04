@@ -42,71 +42,9 @@ public class Lab3P2_AvrilRomero {
             int opcion = sc.nextInt();
             switch (opcion) {
                 case 1: {
-                    System.out.println("Ingrese la placa: ");
-                    String placa = leer.nextLine();
-                    boolean valid = true;
-                    int convalid = 0;
-                    while (valid) {
-                        for (int i = 0; i < vehiculos.size(); i++) {
-                            if (placa.equals(vehiculos.get(i).getPlaca())) {
-                                convalid++;
-                            }
-                        }
-                        if (placa.startsWith("H") && validPlaca(placa) && convalid <= 0) {
-                            valid = false;
-                        } else {
-                            System.out.println("Placa no valida");
-                            System.out.println("Ingrese la placa: ");
-                            placa = leer.nextLine();
-                        }
-                    }//fin while
-                    System.out.println("Ingrese la Marca: ");
-                    String marca = leer.nextLine();
-                    System.out.println("Ingrese un modelo: ");
-                    String modelo = leer.nextLine();
-                    System.out.println("Ingrese el tipo:");
-                    String tipo = leer.nextLine();
-                    Color color;
-                    color = JColorChooser.showDialog(null, "Seleccione un color", Color.red);
-                    System.out.println("Ingrese el año: ");
-                    String fecha = leer.nextLine();
-                    DateFormat df = new SimpleDateFormat("yyyy");
-                    if (fecha.length() > 4) {
-                        System.out.println("Formato incorrecto");
-                    } else {
-                        try {
-                            Date fecha2 = df.parse(fecha);
-                        } catch (ParseException ex) {
-                            System.out.println("Formato incorrecto. No se puede seguir con esta accion");
-                        }
-                    }
-                    System.out.println("""
-                                       Ingrese el tipo de combustible:
-                                       1.Diesel
-                                       2.Super
-                                       3.Regular""");
-                    int op2 = sc.nextInt();
-                    String combustible = "";
-                    switch (op2) {
-                        case 1: {
-                            combustible += "Diesel";
-                        }
-                        break;
-                        case 2: {
-                            combustible += "Super";
-                        }
-                        break;
-                        case 3: {
-                            combustible += "Regular";
-                        }
-                        break;
-                        default: {
-                            System.out.println("Combustible no valido");
-                        }
-                        break;
-                    }
-
+                    vehiculos = agregarAuto(vehiculos);
                 }
+
                 break;
                 case 2: {
 
@@ -165,4 +103,101 @@ public class Lab3P2_AvrilRomero {
         }
 
     }
-}
+
+    public static ArrayList<Vehiculo> agregarAuto(ArrayList<Vehiculo> vehiculos) {
+        Date fecha2 = new Date();
+        System.out.println("Ingrese la placa: ");
+        String placa = leer.nextLine();
+        boolean valid = true;
+        int convalid = 0;
+        while (valid) {
+            for (int i = 0; i < vehiculos.size(); i++) {
+                if (placa.equals(vehiculos.get(i).getPlaca())) {
+                    convalid++;
+                }
+            }
+            if (placa.startsWith("H") && validPlaca(placa) && convalid <= 0) {
+                valid = false;
+            } else {
+                System.out.println("Placa no valida");
+                System.out.println("Ingrese la placa: ");
+                placa = leer.nextLine();
+            }
+        }//fin while
+        System.out.println("Ingrese la Marca: ");
+        String marca = leer.nextLine();
+        System.out.println("Ingrese un modelo: ");
+        String modelo = leer.nextLine();
+        System.out.println("Ingrese el tipo:");
+        String tipo = leer.nextLine();
+        Color color;
+        color = JColorChooser.showDialog(null, "Seleccione un color", Color.red);
+        System.out.println("Ingrese el año: ");
+        String fecha = leer.nextLine();
+        DateFormat df = new SimpleDateFormat("yyyy");
+        if (fecha.length() > 4) {
+            System.out.println("Formato incorrecto");
+        } else {
+            try {
+                fecha2 = df.parse(fecha);
+            } catch (ParseException ex) {
+                System.out.println("Formato incorrecto. No se puede seguir con esta accion");
+            }
+        }
+        System.out.println("""
+                                       Ingrese el tipo de combustible:
+                                       1.Diesel
+                                       2.Super
+                                       3.Regular""");
+        int op2 = sc.nextInt();
+        String combustible = "";
+        switch (op2) {
+            case 1: {
+                combustible += "Diesel";
+            }
+            break;
+            case 2: {
+                combustible += "Super";
+            }
+            break;
+            case 3: {
+                combustible += "Regular";
+            }
+            break;
+            default: {
+                System.out.println("Combustible no valido");
+            }
+            break;
+        }//fin switch
+        System.out.println("Ingrese el numero de puertas: ");
+        int puertas = sc.nextInt();
+        System.out.println("""
+                                       Ingrese el tipo de transmision:
+                                       1.Automatico
+                                       2.Mecanico""");
+        int op3 = sc.nextInt();
+        String transmision = "";
+        switch (op3) {
+            case 1: {
+                transmision += "Automatico";
+            }
+            break;
+            case 2: {
+                transmision += "Mecanico";
+            }
+            break;
+            default: {
+                System.out.println("Transmision no valida");
+            }
+            break;
+        }
+        System.out.println("Ingrese el numero de asientos");
+        int asientos = sc.nextInt();
+        //    public Automoviles(String tipoCombusticle, int numPuertas, String transmision, int numAsientos, String placa, String Marca, String Modelo, String Tipo, Color color, Date year) {
+        Automoviles auto = new Automoviles(combustible, puertas, transmision, asientos, placa, marca, modelo, tipo, color, fecha2);
+        vehiculos.add(auto);
+        return vehiculos;
+    }
+
+}//fin clase 
+
